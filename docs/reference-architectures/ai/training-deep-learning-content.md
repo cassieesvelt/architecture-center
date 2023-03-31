@@ -80,6 +80,8 @@ These considerations implement the pillars of the Azure Well-Architected Framewo
 > REQUIREMENTS: 
 >   For a Reference Architecture, you must include all of these H3 sub-sections/WAF pillars: Reliability, Security, Cost optimization, Operational excellence, and Performance efficiency.
 
+- Should deepspeed + ORT go in cost optimization or performance efficiency?
+
 ### Reliability
 
 > REQUIRED STATEMENT: Include the following statement to introduce the section:
@@ -88,6 +90,8 @@ Reliability ensures your application can meet the commitments you make to your c
 
 > This section includes resiliency and availability considerations. They can also be H4 headers in this section, if you think they should be separated.
 > Are there any key resiliency and reliability considerations (past the typical)?
+
+- Talk about Nebula here
 
 ### Security
 
@@ -113,6 +117,9 @@ Cost optimization is about looking at ways to reduce unnecessary expenses and im
 
 > Link to the pricing calculator (https://azure.microsoft.com/en-us/pricing/calculator) with all of the components in the architecture included, even if they're a $0 or $1 usage.
 > If it makes sense, include small/medium/large configurations. Describe what needs to be changed as you move to larger sizes.
+- Training large models often takes several days, which means the cost of using resources for will steadily increase as the training progresses. It is also likely that the hourly cost will be significant do to the quantity of resources needed. This architecture is built with those costs directly considered, though multiple cost saving measures including efficient data loading, linearly scaling VMs, accelerated model saving and training throughput optimizers.
+- Since total training time is directly correlated with cost becuase of resources being used and throughput correlates to how well the resources are being utilized in a training job, reducing the training time and throughput is the goal of these optimizations. Applying this architecture with Azure Machine Learning showed a 27.8% improvement in training the BERT model, as shown in [this example](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Training/Bert-Pretrain/README.md) on Github.
+- For more information on exact pricing for running your deep learning workload, check out the [Azure Pricing Calculator](https://azure.microsoft.com/en-us/pricing/calculator/).
 
 ### Operational excellence
 
@@ -123,6 +130,8 @@ Operational excellence covers the operations processes that deploy an applicatio
 > This includes DevOps, monitoring, and diagnostics considerations.
 > How do I need to think about operating this solution?
 
+- talk about profilers, tensorboard + interactive debugging here ?
+
 ### Performance efficiency
 
 > REQUIRED STATEMENT: Include the following statement to introduce the section:
@@ -132,6 +141,8 @@ Performance efficiency is the ability of your workload to scale to meet the dema
 > This includes scalability considerations.
 > Are there any key performance considerations (past the typical)?
 > Are there any size considerations around this specific solution? What scale does this work at? At what point do things break or not make sense for this architecture?
+
+- linear scaling with Infiniband ?
 
 ## Deploy this scenario
 
@@ -144,6 +155,8 @@ A deployment for a reference architecture that implements these recommendations 
 1. First step
 2. Second step
 3. Third step ...
+
+- simple how to start example and/or just a link to bestpractices page or bert training example?
 
 ## Contributors
 
