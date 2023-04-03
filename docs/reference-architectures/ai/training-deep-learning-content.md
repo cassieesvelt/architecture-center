@@ -91,7 +91,8 @@ Reliability ensures your application can meet the commitments you make to your c
 > This section includes resiliency and availability considerations. They can also be H4 headers in this section, if you think they should be separated.
 > Are there any key resiliency and reliability considerations (past the typical)?
 
-- Talk about Nebula here
+- Providing resiliency and reliability is particularly important for large scale distributed training jobs. When training a model for long periods of time, job failures can be very impactful, wasting time and resources. Fortunately with model checkpointing, the training process can be saved at periodic checkpoints and if the training fails due to hardware faults it can be resumed while losing no progress. AzureML will also automatically resume jobs failed due to hardware faults.
+- This architecture also uses Nebula checkpointing, which improves on standard model checkpointing by saving models 1000 times faster. For more information on how Nebula checkpointing can improve the reliability of your jobs, see [this overview page](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Training/Nebula-Fast-Checkpointing/nebula.md).
 
 ### Security
 
@@ -118,7 +119,7 @@ Cost optimization is about looking at ways to reduce unnecessary expenses and im
 > Link to the pricing calculator (https://azure.microsoft.com/en-us/pricing/calculator) with all of the components in the architecture included, even if they're a $0 or $1 usage.
 > If it makes sense, include small/medium/large configurations. Describe what needs to be changed as you move to larger sizes.
 - Training large models often takes several days, which means the cost of using resources for will steadily increase as the training progresses. It is also likely that the hourly cost will be significant do to the quantity of resources needed. This architecture is built with those costs directly considered, though multiple cost saving measures including efficient data loading, linearly scaling VMs, accelerated model saving and training throughput optimizers.
-- Since total training time is directly correlated with cost becuase of resources being used and throughput correlates to how well the resources are being utilized in a training job, reducing the training time and throughput is the goal of these optimizations. Applying this architecture with Azure Machine Learning showed a 27.8% improvement in training the BERT model, as shown in [this example](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Training/Bert-Pretrain/README.md) on Github.
+- Since total training time is directly correlated with cost because of resources being used and throughput correlates to how well the resources are being utilized in a training job, reducing the training time and throughput is the goal of these optimizations. Applying this architecture with Azure Machine Learning showed a 27.8% improvement in training the BERT model, as shown in [this example](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Training/Bert-Pretrain/README.md) on Github.
 - For more information on exact pricing for running your deep learning workload, check out the [Azure Pricing Calculator](https://azure.microsoft.com/en-us/pricing/calculator/).
 
 ### Operational excellence
