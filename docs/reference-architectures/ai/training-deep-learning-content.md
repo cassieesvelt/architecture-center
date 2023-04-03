@@ -91,8 +91,9 @@ Reliability ensures your application can meet the commitments you make to your c
 > This section includes resiliency and availability considerations. They can also be H4 headers in this section, if you think they should be separated.
 > Are there any key resiliency and reliability considerations (past the typical)?
 
-- Providing resiliency and reliability is particularly important for large scale distributed training jobs. When training a model for long periods of time, job failures can be very impactful, wasting time and resources. Fortunately with model checkpointing, the training process can be saved at periodic checkpoints and if the training fails due to hardware faults it can be resumed while losing no progress. AzureML will also automatically resume jobs failed due to hardware faults.
-- This architecture also uses Nebula checkpointing, which improves on standard model checkpointing by saving models 1000 times faster. For more information on how Nebula checkpointing can improve the reliability of your jobs, see [this overview page](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Training/Nebula-Fast-Checkpointing/nebula.md).
+Providing resiliency and reliability is particularly important for large scale distributed training jobs. When training a model for long periods of time, job failures can be very impactful, wasting time and resources. Fortunately with model checkpointing, the training process can be saved at periodic checkpoints and if the training fails due to hardware faults it can be resumed while losing no progress. AzureML will also automatically resume jobs failed due to hardware faults.
+
+This architecture also uses Nebula checkpointing, which improves on standard model checkpointing by saving models 1000 times faster. For more information on how Nebula checkpointing can improve the reliability of your jobs, see [this overview page](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Training/Nebula-Fast-Checkpointing/nebula.md).
 
 ### Security
 
@@ -131,8 +132,18 @@ Operational excellence covers the operations processes that deploy an applicatio
 > This includes DevOps, monitoring, and diagnostics considerations.
 > How do I need to think about operating this solution?
 
-- talk about profilers, tensorboard + interactive debugging here ?
+To achieve operational excellence, this architecture employs several tools to help monitor resource performance and catch problems while they are happening. Aside from the automatically logged stdout and stderr streams of the training script, this architecture also uses Tensorboard, interactive debugging and Pytorch Profiler.
 
+#### Tensorboard
+- Tensorboard can be used to monitor the progress of a job by showing metrics recorded in real time. This also includes DeepSpeed recorded metrics if DeepSpeed is enabled.
+
+#### VSCode Interactive Debugging
+- Submit a job with a debugger attached and execution paused.
+
+#### Pytorch Profiler
+- Shown with a nice UI via Tensorboard, the Pytorch Profiler shows extended detail on resource utilization during training.
+
+More information on interactive debugging can be found on [this introduction page](https://learn.microsoft.com/en-us/azure/machine-learning/how-to-interactive-jobs?tabs=ui#attach-a-debugger-to-a-job).
 ### Performance efficiency
 
 > REQUIRED STATEMENT: Include the following statement to introduce the section:
@@ -143,7 +154,12 @@ Performance efficiency is the ability of your workload to scale to meet the dema
 > Are there any key performance considerations (past the typical)?
 > Are there any size considerations around this specific solution? What scale does this work at? At what point do things break or not make sense for this architecture?
 
-- linear scaling with Infiniband ?
+Many of the optimizations used in this architecture are added specifically for large scale training jobs. If you are running a smaller scale training job, many of these optimizations are not necessary. Distributed training is best suited for:
+- Large models that can't be trained by using a reasonable batch size on a single GPU.
+- Problems that can't be addressed by distributing the model in a simple, parallel way.
+Distributed training isn't recommended for running hyperparameter searches. The scaling efficiency affects performance and makes a distributed approach less efficient than training multiple model configurations separately.
+
+One way to increase scaling efficiency is to increase the batch size. But make this adjustment carefully. Increasing the batch size without adjusting the other parameters can impair the model's final performance.
 
 ## Deploy this scenario
 
@@ -151,13 +167,8 @@ Performance efficiency is the ability of your workload to scale to meet the dema
 
 _Describe a step-by-step process for implementing the reference architecture solution. Best practices are to add the solution to GitHub, provide a link (use boilerplate text below), and explain how to roll out the solution._
 
-A deployment for a reference architecture that implements these recommendations and considerations is available on [GitHub](https://www.github.com/path-to-repo).
+A deployment for a reference architecture that implements these recommendations and considerations is available on [GitHub](https://github.com/Azure/azureml-examples/tree/main/best-practices/largescale-deep-learning/Training).
 
-1. First step
-2. Second step
-3. Third step ...
-
-- simple how to start example and/or just a link to bestpractices page or bert training example?
 
 ## Contributors
 
@@ -187,7 +198,7 @@ Other contributors: > Include contributing (but not primary) authors, major edit
 
 Examples:
 * [Azure Machine Learning documentation](/azure/machine-learning)
-* [What are Azure Cognitive Services?](/azure/cognitive-services/what-are-cognitive-services)
+* [AzureML Large Scale Deep Learning Best Practices](https://github.com/Azure/azureml-examples/tree/main/best-practices/largescale-deep-learning)
 
 ## Related resources
 
