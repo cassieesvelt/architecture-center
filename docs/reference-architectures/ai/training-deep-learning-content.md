@@ -45,7 +45,7 @@ By using distributed training with cutting edge optimizations, AzureML is able t
 #### DeepSpeed
 DeepSpeed is an open-source library developed by Microsoft that optimizes the training of large deep learning models. It aims to reduce the time and memory requirements needed for training large models with trillions of parameters on distributed GPU clusters.
 
-DeepSpeed optimizes training through a combination of several techniques, including gradient accumulation, model parallelism, and automatic mixed precision (AMP). In additon, DeepSpeed also uses a technique known as ZeRO (Zero Redundancy Optimizer). ZeRO partitions a model into small pieces and stores only one copy of each piece in memory, effectively reducing the amount of memory required to train very large models. This can be a huge advantage since running out of memory is a common problem when training large models with limited resources.
+DeepSpeed optimizes training through a combination of several techniques, including gradient accumulation, model parallelism, and automatic mixed precision (AMP). In addition, DeepSpeed also uses a technique known as ZeRO (Zero Redundancy Optimizer). ZeRO partitions a model into small pieces and stores only one copy of each piece in memory, effectively reducing the amount of memory required to train very large models. This can be a huge advantage since running out of memory is a common problem when training large models with limited resources.
 
 #### Onnx Runtime Training (ORT)
 
@@ -114,33 +114,12 @@ A deployment for a reference architecture that implements these recommendations 
 
 Principal authors: > Only the primary authors. Listed alphabetically by last name. Use this format: Fname Lname. If the article gets rewritten, keep the original authors and add in the new one(s).
 
+ - [Cassie Esvelt](https://www.linkedin.com/in/cassie-esvelt-b87724202/) | Software Engineer
  - [Ilia Karmanov](https://www.linkedin.com/in/ilia-karmanov-09aa588b) | Senior Applied Scientist
+ - [Savita Mittal](https://www.linkedin.com/in/savita-mittal-b8524012/) | Principal Software Engineer
  - [Mathew Salvaris](https://www.linkedin.com/in/drmathewsalvaris) | Principal Data Scientist Lead
- - > Continue for each primary author (even if there are 10 of them).
-
-Other contributors: > Include contributing (but not primary) authors, major editors (not minor edits), and technical reviewers. Listed alphabetically by last name. Use this format: Fname Lname. It's okay to add in newer contributors.
-
- - [Contributor 1 Name](http://linkedin.com/ProfileURL) | Title, such as "Cloud Solution Architect"
- - [Contributor 2 Name](http://linkedin.com/ProfileURL) | Title, such as "Cloud Solution Architect"
- - > Continue for each additional contributor (even if there are 10 of them).
-
-*To see non-public LinkedIn profiles, sign in to LinkedIn.*
-
-## Next steps
+ - [Razvan Tanase](https://www.linkedin.com/in/razvantanase/) | Principal Software Engineering Manager
 
 Examples:
 * [Azure Machine Learning documentation](/azure/machine-learning)
 * [AzureML Large Scale Deep Learning Best Practices](https://github.com/Azure/azureml-examples/tree/main/best-practices/largescale-deep-learning)
-
-## Related resources
-
-> Use "Related resources" for architecture information that's relevant to the current article. It must be content that the Azure Architecture Center TOC refers to, but may be from a repo other than the AAC repo.
-> Links to articles in the AAC repo should be repo-relative, for example (../../solution-ideas/articles/article-name.yml).
-
-> Here is an example section:
-
-Fully deployable architectures:
-
-* [Chatbot for hotel reservations](/azure/architecture/example-scenario/ai/commerce-chatbot)
-* [Build an enterprise-grade conversational bot](/azure/architecture/reference-architectures/ai/conversational-bot)
-* [Speech-to-text conversion](/azure/architecture/reference-architectures/ai/speech-ai-ingestion)
