@@ -17,18 +17,17 @@ The following workflow (or dataflow) corresponds to the above diagram:
 
 - **Training Files**. These files include the training script, the job submission yaml file, and any other files necessary for training. The job will be submitted with the YAML file that will specify the distribution type, compute, environment, storage, etc.
 
-- **Mounted Blob Storage**. This is where the logs and outputs of the job will be stored. It is important when running large scale distributed training jobs that data is accessed in the most preformant way. [This guide](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Data-loading/data-loading.md#how-can-model-training-performance-be-impacted-by-data-loading) on data loading gives insight on what the best storage method is depending on the specifics of a large scale scenario.
+- **Mounted Blob Storage**. This is where the logs and outputs of the job will be stored. It is important when running large scale distributed training jobs that data is accessed in the most preformant way. [This guide](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Data-loading/data-loading.md#how-can-model-training-performance-be-impacted-by-data-loading) on data loading gives insight on what the best storage method is depending on the specifics of the scenario. 
 
 - **Environment**. This is where the dependencies for training are defined. Curated with large scale distributed training in mind, AzureML provides [Azure Container for PyTorch (ACPT)](https://learn.microsoft.com/en-us/azure/machine-learning/resource-azure-container-for-pytorch) environments that include several cutting edge optimizers.
 
-- **Compute**. Using Azure Machine Learning computes, it is possible to provision and manage clusters of VMs, schedule jobs, gather results, scale resources, and handle failures. For large scale distributed model training, these computes are especially helpful due to the linear scaling provided by Infiniband enabled SKUs. Linear scaling refers to the concept that as the number of VMs training a given model increases, the time to train that model should decrease linearly. AzureML offers optimized supercomputer hardware with high bandwidth interconnects to enable low latency, GPU-to-GPU communication across nodes in a cluster.
-The full list of AzureML InfiniBand-enabled machine SKUs can be viewed [here](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-hpc#rdma-capable-instances).
+- **Compute**. Using Azure Machine Learning computes, it is possible to provision and manage clusters of VMs, schedule jobs, gather results, scale resources, and handle failures.
 
 ### Components
 
 **[Azure Machine Learning](https://azure.microsoft.com/services/machine-learning)** is an open platform for managing the development and deployment of machine-learning models at scale. The platform supports commonly used open frameworks and offers automated featurization and algorithm selection. You can use Machine Learning to deploy models to various targets, including Azure Container Instances.
 
-**[Standard Blob Storage](/azure/storage/blobs/storage-blobs-introduction)** is used to store the logs and outputs. Standard Blob Storage is recommended for most scenarios, but in certain cases Premium Storage is preferred. More details can be found in [this guide](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Data-loading/data-loading.md#how-can-model-training-performance-be-impacted-by-data-loading).
+**[Standard Blob Storage](/azure/storage/blobs/storage-blobs-introduction)** is used to store the logs and outputs. Standard Blob Storage is recommended for most scenarios, but in certain cases Premium Storage is preferred.
 
 **[Azure Container Registry](/azure/container-registry/container-registry-intro)** is used to store the Docker image that Azure Machine Learning Compute uses to run the training.
 
@@ -41,7 +40,11 @@ Training large models with large datasets has often led to state-of-the-art accu
 By using distributed training with cutting edge optimizations, AzureML is able to provide a solution to these problems that has allowed numerous customers to use Azure Machine Learning for training models with millions/billions of parameters.
 
 ### Optimizations
-
+#### Infiniband enabled SKUs
+For large scale distributed model training, azureml computes are ideal due to the linear scaling provided by Infiniband. Linear scaling refers to the concept that as the number of VMs training a given model increases, the time to train that model should decrease linearly. AzureML offers optimized supercomputer hardware with high bandwidth interconnects to enable low latency, GPU-to-GPU communication across nodes in a cluster.
+The full list of AzureML InfiniBand-enabled machine SKUs can be viewed [here](https://learn.microsoft.com/en-us/azure/virtual-machines/sizes-hpc#rdma-capable-instances).
+#### Data Loading
+Optimizing data loading is essential for training LLMs due to the large amount of data required. Some things that need to be taken into consideration are storage choice, VM choice, neural network size, file size, data location, and how efficient the client code is at accessing storage. Each of these considerations is expanded in more detail [here](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Data-loading/data-loading.md#how-can-model-training-performance-be-impacted-by-data-loading).
 #### DeepSpeed
 DeepSpeed is an open-source library developed by Microsoft that optimizes the training of large deep learning models. It aims to reduce the time and memory requirements needed for training large models with trillions of parameters on distributed GPU clusters.
 
