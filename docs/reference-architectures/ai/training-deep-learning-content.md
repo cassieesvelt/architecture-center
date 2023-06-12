@@ -27,9 +27,9 @@ The following workflow (or dataflow) corresponds to the above diagram:
 
 **[Azure Machine Learning](https://azure.microsoft.com/services/machine-learning)** is an open platform for managing the development and deployment of machine-learning models at scale. The platform supports commonly used open frameworks and offers automated featurization and algorithm selection. You can use Machine Learning to deploy models to various targets, including Azure Container Instances.
 
-**[Standard Blob Storage](/azure/storage/blobs/storage-blobs-introduction)** is used to store the logs and outputs. Standard Blob Storage is recommended for most scenarios, but in certain cases Premium Storage is preferred.
+**[Standard Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction)** is used to store the logs and outputs. Standard Blob Storage is recommended for most scenarios, but in certain cases Premium Storage is preferred.
 
-**[Azure Container Registry](/azure/container-registry/container-registry-intro)** is used to store the Docker image that Azure Machine Learning Compute uses to run the training.
+**[Azure Container Registry](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-intro)** is used to store the Docker image that Azure Machine Learning Compute uses to run the training.
 
 ## Scenario details
 
@@ -66,7 +66,7 @@ Reliability ensures your application can meet the commitments you make to your c
 
 Providing resiliency and reliability is particularly important for large scale distributed training jobs. When training a model for long periods of time, job failures can be very impactful, wasting time and resources. Fortunately with model checkpointing, the training process can be saved at periodic checkpoints and if the training fails due to hardware faults it can be resumed while losing no progress. AzureML will also automatically resume jobs failed due to hardware faults.
 
-This architecture also uses Nebula checkpointing, which improves on standard model checkpointing by saving models 1000 times faster. For more information on how Nebula checkpointing can improve the reliability of your jobs, see [this overview page](https://github.com/Azure/azureml-examples/blob/main/best-practices/largescale-deep-learning/Training/Nebula-Fast-Checkpointing/nebula.md).
+This architecture also uses Nebula checkpointing, which improves on standard model checkpointing by saving models 1000 times faster. For more information on how Nebula checkpointing can improve the reliability of your jobs, see [this overview page](https://github.com/Azure/azureml-examples/tree/main/best-practices/largescale-deep-learning/Training/Nebula-Fast-Checkpointing).
 
 ### Cost optimization
 
