@@ -104,7 +104,7 @@ Many of the techniques used in this architecture are added specifically for larg
 
 Distributed training isn't recommended for running hyperparameter searches. The scaling efficiency affects performance and makes a distributed approach less efficient than training multiple model configurations separately.
 
-One way to increase scaling efficiency is to increase the batch size. But make this adjustment carefully. Increasing the batch size without adjusting the other parameters can impair the model's final performance.
+One way to increase scaling efficiency is to increase the batch size. But make this adjustment carefully. Increasing the batch size without adjusting the other parameters can impair the model's final performance. See the guide linked below for some examples of different parameter combinations that achieved high performance.
 
 ## Deploy this scenario
 
